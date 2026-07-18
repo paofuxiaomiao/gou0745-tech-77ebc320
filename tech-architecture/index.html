@@ -1,0 +1,1773 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>0745购页面技术栈与Skill架构</title>
+    <meta
+      name="description"
+      content="0745购项目合作实施方案页面的技术栈、前端架构、Skill资源结构、资产发布与升级维护说明。" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #ffffff;
+        --ink: #090909;
+        --body: #2d2d2d;
+        --muted: #888;
+        --faint: #bbb;
+        --line: #eee;
+        --soft: #f7f7f7;
+        --soft-2: #fafafa;
+        --dark: #0a0a0a;
+        --violet: #6d5bd0;
+        --pine: #1b2f29;
+        --serif: "Noto Serif SC", Georgia, serif;
+        --sans: "Inter", "Noto Serif SC", sans-serif;
+        --mono: "JetBrains Mono", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--body);
+        font-family: var(--serif);
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      ::selection {
+        background: var(--ink);
+        color: white;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        height: 52px;
+        border-bottom: 1px solid #f0f0f0;
+        background: rgb(255 255 255 / 0.98);
+        backdrop-filter: blur(8px);
+      }
+
+      .nav-inner {
+        height: 52px;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: var(--sans);
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .brand-mark {
+        width: 22px;
+        height: 22px;
+        background:
+          linear-gradient(135deg, var(--pine), #395f54 52%, var(--violet) 52%),
+          var(--ink);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        font-family: var(--sans);
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .nav-links a:first-child {
+        color: var(--muted);
+      }
+
+      .nav-links a:first-child:hover {
+        color: var(--ink);
+      }
+
+      .pill-link {
+        padding: 7px 16px;
+        border-radius: 999px;
+        background: #111;
+        color: white;
+        font-size: 12px;
+      }
+
+      .article-head {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 88px 28px 48px;
+        text-align: center;
+      }
+
+      .date {
+        margin: 0 0 24px;
+        font-family: var(--sans);
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        color: #999;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        color: #000;
+        font-family: var(--sans);
+        font-size: clamp(3.6rem, 9.6vw, 8.8rem);
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        line-height: 0.84;
+        text-transform: uppercase;
+      }
+
+      .author {
+        margin-top: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 11px;
+        font-family: var(--sans);
+        font-size: 13px;
+        font-weight: 700;
+        color: #333;
+      }
+
+      .avatar {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--ink);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .avatar::after {
+        content: "";
+        position: absolute;
+        inset: 6px;
+        border-radius: inherit;
+        background: var(--violet);
+      }
+
+      .hero {
+        max-width: 1060px;
+        margin: 0 auto 88px;
+        padding: 0 28px;
+      }
+
+      .hero img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+      }
+
+      .content-wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 28px 128px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 200px;
+        gap: 80px;
+      }
+
+      .article-body {
+        max-width: 700px;
+        font-size: 1.0625rem;
+        line-height: 1.9;
+        letter-spacing: 0.01em;
+      }
+
+      .article-body p {
+        margin: 0 0 1.75rem;
+      }
+
+      .article-body strong {
+        font-weight: 700;
+        color: #111;
+      }
+
+      .article-body h2 {
+        margin: 4.5rem 0 1.5rem;
+        color: #0a0a0a;
+        font-family: var(--sans);
+        font-size: clamp(1.65rem, 3vw, 2.1rem);
+        font-weight: 800;
+        letter-spacing: -0.025em;
+        line-height: 1.15;
+      }
+
+      .article-body h3 {
+        margin: 3rem 0 1rem;
+        color: #111;
+        font-family: var(--sans);
+        font-size: 1.18rem;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+      }
+
+      .article-body ul,
+      .article-body ol {
+        margin: 0 0 1.75rem;
+        padding-left: 1.25rem;
+      }
+
+      .article-body ul {
+        list-style-type: square;
+      }
+
+      .article-body li {
+        margin-bottom: 0.65rem;
+        padding-left: 0.25rem;
+      }
+
+      .pull-quote {
+        margin: 0 0 56px;
+        color: #111;
+        font-size: clamp(1.55rem, 4vw, 2.25rem);
+        font-style: italic;
+        line-height: 1.42;
+      }
+
+      figure {
+        margin: 56px 0 64px;
+      }
+
+      figcaption {
+        margin-top: 12px;
+        color: #999;
+        font-family: var(--sans);
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .breakout {
+        width: min(860px, calc(100vw - 56px));
+      }
+
+      .figure-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 18px;
+        align-items: stretch;
+      }
+
+      .figure-grid img {
+        height: 100%;
+        min-height: 320px;
+        object-fit: cover;
+      }
+
+      .figure-grid img:nth-child(2) {
+        object-position: top center;
+        background: #f5f5f5;
+      }
+
+      .callout {
+        margin: 42px 0;
+        padding: 28px 30px;
+        border-left: 3px solid #111;
+        background: #fafafa;
+        font-family: var(--sans);
+        font-size: 0.98rem;
+        font-weight: 600;
+        line-height: 1.75;
+        color: #171717;
+      }
+
+      .stack-grid {
+        margin: 34px 0 44px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .stack-card {
+        border: 1px solid #eee;
+        background: #fafafa;
+        padding: 18px 18px 17px;
+      }
+
+      .stack-card b {
+        display: block;
+        margin-bottom: 6px;
+        color: #111;
+        font-family: var(--sans);
+        font-size: 14px;
+        letter-spacing: -0.01em;
+      }
+
+      .stack-card span {
+        display: block;
+        color: #666;
+        font-family: var(--sans);
+        font-size: 12.5px;
+        line-height: 1.55;
+      }
+
+      .method-panel {
+        margin: 42px 0 54px;
+        width: min(900px, calc(100vw - 56px));
+        border-top: 1px solid #111;
+        border-bottom: 1px solid #eee;
+        font-family: var(--sans);
+      }
+
+      .method-row {
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr);
+        gap: 24px;
+        padding: 18px 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      .method-row:last-child {
+        border-bottom: 0;
+      }
+
+      .method-row b {
+        color: #111;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .method-row span {
+        color: #555;
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .dark-block {
+        margin: 56px 0 64px;
+        width: min(900px, calc(100vw - 56px));
+        background: #0a0a0a;
+        color: white;
+        padding: 34px;
+      }
+
+      .dark-block h3 {
+        margin: 0 0 24px;
+        color: white;
+      }
+
+      .dark-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .dark-card {
+        min-height: 138px;
+        border: 1px solid #333;
+        padding: 18px;
+        font-family: var(--sans);
+      }
+
+      .dark-card .num {
+        display: block;
+        margin-bottom: 22px;
+        color: #777;
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+
+      .dark-card b {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      .dark-card p {
+        margin: 0;
+        color: #bbb;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      .arch-map {
+        margin: 42px 0 56px;
+        width: min(900px, calc(100vw - 56px));
+        border: 1px solid #eee;
+        background:
+          linear-gradient(#fff, #fff),
+          repeating-linear-gradient(90deg, #f4f4f4 0 1px, transparent 1px 64px);
+        padding: 28px;
+      }
+
+      .map-row {
+        display: grid;
+        grid-template-columns: 148px 1fr;
+        gap: 14px;
+        align-items: stretch;
+        margin-bottom: 12px;
+      }
+
+      .map-row:last-child {
+        margin-bottom: 0;
+      }
+
+      .map-label {
+        border: 1px solid #111;
+        background: #111;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--sans);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .map-items {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .map-item {
+        min-height: 84px;
+        border: 1px solid #e5e5e5;
+        background: white;
+        padding: 14px;
+        font-family: var(--sans);
+      }
+
+      .map-item b {
+        display: block;
+        margin-bottom: 6px;
+        color: #111;
+        font-size: 13px;
+      }
+
+      .map-item span {
+        color: #666;
+        font-size: 11.5px;
+        line-height: 1.45;
+      }
+
+      code {
+        padding: 2px 5px;
+        background: #f4f4f4;
+        font-family: var(--mono);
+        font-size: 0.86em;
+      }
+
+      .matrix-note {
+        margin: 28px 0 26px;
+        color: #666;
+        font-family: var(--sans);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .page-matrix,
+      .prompt-library {
+        width: min(920px, calc(100vw - 56px));
+        margin: 36px 0 64px;
+      }
+
+      .page-card,
+      .prompt-card {
+        border-top: 1px solid #e9e9e9;
+        font-family: var(--sans);
+      }
+
+      .page-card:last-child,
+      .prompt-card:last-child {
+        border-bottom: 1px solid #e9e9e9;
+      }
+
+      .page-card summary,
+      .prompt-card summary {
+        list-style: none;
+        cursor: pointer;
+        display: grid;
+        grid-template-columns: 62px minmax(0, 1fr) 168px 142px;
+        gap: 18px;
+        align-items: center;
+        padding: 18px 0;
+      }
+
+      .prompt-card summary {
+        grid-template-columns: 92px minmax(0, 1fr) 118px;
+        align-items: baseline;
+      }
+
+      .page-card summary::-webkit-details-marker,
+      .prompt-card summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .page-no,
+      .prompt-no {
+        color: #999;
+        font-family: var(--mono);
+        font-size: 12px;
+      }
+
+      .page-title,
+      .prompt-title {
+        color: #111;
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+      }
+
+      .page-component,
+      .prompt-kind {
+        color: #999;
+        font-family: var(--mono);
+        font-size: 11px;
+        text-align: right;
+      }
+
+      .page-summary-thumb {
+        justify-self: end;
+        width: 142px;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        border: 1px solid #e7e7e7;
+        background: #f6f6f6;
+      }
+
+      .page-summary-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .page-detail,
+      .prompt-detail {
+        padding: 0 0 24px 80px;
+        color: #555;
+        font-size: 13px;
+        line-height: 1.75;
+      }
+
+      .page-detail {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 260px;
+        gap: 28px;
+        align-items: start;
+      }
+
+      .prompt-detail {
+        padding-left: 110px;
+      }
+
+      .page-detail-main {
+        min-width: 0;
+      }
+
+      .page-preview {
+        position: sticky;
+        top: 78px;
+        margin: 14px 0 0;
+      }
+
+      .page-preview img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        border: 1px solid #e3e3e3;
+        background: #f7f7f7;
+      }
+
+      .page-preview figcaption {
+        margin-top: 9px;
+        color: #777;
+        font-size: 11px;
+      }
+
+      .detail-label {
+        margin: 14px 0 6px;
+        color: #111;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .tech-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+
+      .generation-note {
+        display: grid;
+        gap: 10px;
+        margin-top: 8px;
+      }
+
+      .generation-step {
+        display: grid;
+        grid-template-columns: 104px minmax(0, 1fr);
+        gap: 14px;
+        padding: 12px 0;
+        border-top: 1px solid #eee;
+      }
+
+      .generation-step b {
+        color: #111;
+        font-family: var(--sans);
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .generation-step span {
+        color: #555;
+        font-size: 13px;
+        line-height: 1.75;
+      }
+
+      .tech-pill,
+      .prompt-chip {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid #eee;
+        background: #f7f7f7;
+        padding: 5px 8px;
+        color: #555;
+        font-family: var(--sans);
+        font-size: 11px;
+        line-height: 1.2;
+      }
+
+      .prompt-chip {
+        background: #111;
+        color: white;
+        border-color: #111;
+      }
+
+      .inline-prompts {
+        display: grid;
+        gap: 12px;
+      }
+
+      .inline-prompt {
+        background: #fbfbfb;
+        border-left: 3px solid #111;
+        padding: 14px 16px 15px;
+      }
+
+      .inline-prompt-head {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        margin-bottom: 8px;
+        color: #111;
+        font-family: var(--sans);
+      }
+
+      .inline-prompt-no {
+        flex: 0 0 auto;
+        padding: 3px 6px;
+        background: #111;
+        color: white;
+        font-family: var(--mono);
+        font-size: 10px;
+        line-height: 1;
+      }
+
+      .inline-prompt-title {
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .inline-prompt-kind {
+        margin-left: auto;
+        color: #888;
+        font-family: var(--mono);
+        font-size: 10px;
+      }
+
+      .inline-prompt-text {
+        color: #333;
+        font-family: var(--serif);
+        font-size: 13px;
+        line-height: 1.85;
+      }
+
+      .prompt-text {
+        margin: 10px 0 0;
+        padding: 16px 18px;
+        background: #fafafa;
+        border-left: 3px solid #111;
+        color: #333;
+        font-family: var(--serif);
+        font-size: 14px;
+        line-height: 1.85;
+      }
+
+      pre {
+        overflow-x: auto;
+        margin: 32px 0 42px;
+        padding: 24px;
+        background: #0a0a0a;
+        color: #e8e8e8;
+        font-family: var(--mono);
+        font-size: 12px;
+        line-height: 1.7;
+      }
+
+      .tag-cloud {
+        margin: 28px 0 44px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-family: var(--sans);
+      }
+
+      .tag {
+        border: 1px solid #eee;
+        background: #f7f7f7;
+        padding: 7px 11px;
+        color: #555;
+        font-size: 12px;
+      }
+
+      .tag.dark {
+        background: #111;
+        color: white;
+        border-color: #111;
+      }
+
+      .toc {
+        position: sticky;
+        top: 82px;
+        align-self: start;
+        padding-left: 18px;
+        border-left: 1px solid #eee;
+        font-family: var(--sans);
+      }
+
+      .toc-title {
+        margin-bottom: 18px;
+        color: #999;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .toc a {
+        position: relative;
+        display: block;
+        margin: 0 0 13px;
+        color: #bbb;
+        font-size: 12px;
+        line-height: 1.35;
+        transition: color 0.2s ease;
+      }
+
+      .toc a.active,
+      .toc a:hover {
+        color: #111;
+      }
+
+      .toc a.active::before {
+        content: "";
+        position: absolute;
+        left: -20px;
+        top: 2px;
+        width: 2px;
+        height: 16px;
+        background: #111;
+      }
+
+      .toc-links {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+      }
+
+      .toc-links a {
+        color: #555;
+      }
+
+      .footer-note {
+        margin-top: 96px;
+        padding-top: 28px;
+        border-top: 1px solid #eee;
+        font-family: var(--sans);
+        color: #777;
+        font-size: 13px;
+        line-height: 1.75;
+      }
+
+      @media (max-width: 960px) {
+        .content-wrap {
+          display: block;
+        }
+
+        .toc {
+          display: none;
+        }
+
+        .article-body {
+          margin: 0 auto;
+        }
+
+        .breakout,
+        .dark-block,
+        .arch-map,
+        .method-panel {
+          width: 100%;
+        }
+
+        .page-matrix,
+        .prompt-library {
+          width: 100%;
+        }
+
+        .page-card summary {
+          grid-template-columns: 56px minmax(0, 1fr) 142px;
+        }
+
+        .page-summary-thumb {
+          display: none;
+        }
+
+        .page-detail {
+          grid-template-columns: 1fr;
+          padding-left: 0;
+        }
+
+        .page-preview {
+          position: static;
+          max-width: 420px;
+          margin-top: 10px;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .nav-inner,
+        .article-head,
+        .hero,
+        .content-wrap {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+
+        .nav-links {
+          gap: 12px;
+        }
+
+        .nav-links a:first-child {
+          display: none;
+        }
+
+        .article-head {
+          padding-top: 58px;
+        }
+
+        .hero {
+          margin-bottom: 62px;
+        }
+
+        .figure-grid,
+        .stack-grid,
+        .dark-grid,
+        .map-row,
+        .map-items,
+        .method-row,
+        .generation-step {
+          grid-template-columns: 1fr;
+        }
+
+        .figure-grid img {
+          min-height: 220px;
+        }
+
+        .dark-block,
+        .arch-map {
+          padding: 24px 20px;
+        }
+
+        .page-card summary,
+        .prompt-card summary {
+          grid-template-columns: 1fr;
+          gap: 7px;
+        }
+
+        .page-component,
+        .prompt-kind {
+          text-align: left;
+        }
+
+        .prompt-detail {
+          padding-left: 0;
+        }
+
+        .inline-prompt-head {
+          display: grid;
+          grid-template-columns: max-content minmax(0, 1fr);
+        }
+
+        .inline-prompt-kind {
+          grid-column: 2;
+          margin-left: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="nav-inner">
+        <a class="brand" href="#">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>0745 Tech Note</span>
+        </a>
+        <nav class="nav-links" aria-label="外部链接">
+          <a href="https://github.com/paofuxiaomiao/gou0745-proposal" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="pill-link" href="https://paofuxiaomiao.github.io/gou0745-proposal/" target="_blank" rel="noreferrer">Live Page</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="article-head">
+        <p class="date">Jul 09, 2026 · Maintainable Web Deck</p>
+        <h1>0745<br />Stack & Skill<br />Architecture</h1>
+        <div class="author">
+          <span class="avatar" aria-hidden="true"></span>
+          <span>paofuxiaomiao / Codex handoff note</span>
+        </div>
+      </section>
+
+      <figure class="hero">
+        <img src="assets/hero_mountains.jpg" alt="0745购项目页面山水风格封面视觉" fetchpriority="high" decoding="async" />
+      </figure>
+
+      <div class="content-wrap">
+        <article class="article-body">
+          <blockquote class="pull-quote">
+            “这个项目不是一张静态海报，而是一套可持续维护的 Web 演示系统：内容、视觉、资产和发布链路必须各自有边界。”
+          </blockquote>
+
+          <section id="overview">
+            <p>
+              0745购项目合作实施方案当前以 <strong>React + Vite + Tailwind CSS</strong> 构建为全屏翻页式 Web Deck，
+              发布到 GitHub Pages。它的核心不是“单页堆内容”，而是把演示拆成三层：页面运行时、共享视觉组件、具体 slide 内容。
+            </p>
+            <p>
+              为了让项目可维护可升级，后续编辑应遵守一个简单原则：<strong>内容改 slide，框架改 Deck，视觉规范改 SlideKit 与 index.css，发布只动 gh-pages 产物。</strong>
+              这样每次更新不会把业务文案、动画系统、资源路径和部署配置搅在一起。
+            </p>
+
+            <div class="callout">
+              当前公开页面：<code>https://paofuxiaomiao.github.io/gou0745-proposal/</code>。公开资源路径使用
+              <code>/gou0745-proposal/manus-storage/</code>，一旦发布，文件名应视为稳定接口。
+            </div>
+          </section>
+
+          <section id="tech-stack">
+            <h2>技术栈不是随便选的，而是围绕“演示型 Web Deck”服务</h2>
+            <p>
+              这套技术栈的目标是：浏览器内翻页顺滑、视觉语言可复用、图片资产可长期归档、静态发布成本低。它不依赖后端运行时即可公开访问。
+            </p>
+
+            <div class="stack-grid">
+              <div class="stack-card"><b>React 19</b><span>承载 Deck、Slide、Provider 和可复用组件。</span></div>
+              <div class="stack-card"><b>TypeScript</b><span>约束 slide registry、组件 props、Vite 插件代码。</span></div>
+              <div class="stack-card"><b>Vite 7</b><span>负责开发服务器、静态构建、GitHub Pages base path。</span></div>
+              <div class="stack-card"><b>Tailwind CSS 4</b><span>通过 `@tailwindcss/vite` 接入，结合 OKLCH token。</span></div>
+              <div class="stack-card"><b>wouter</b><span>提供轻量 SPA route，支持 `/` 与 Pages 子路径。</span></div>
+              <div class="stack-card"><b>Radix / shadcn</b><span>保留通用 UI primitives，便于扩展弹窗、tooltip、按钮。</span></div>
+              <div class="stack-card"><b>lucide-react</b><span>用于翻页箭头等界面图标。</span></div>
+              <div class="stack-card"><b>GitHub Pages</b><span>从 `gh-pages` 根目录发布静态产物。</span></div>
+            </div>
+
+            <div class="tag-cloud">
+              <span class="tag dark">React</span>
+              <span class="tag">Vite</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">Tailwind CSS 4</span>
+              <span class="tag">OKLCH Tokens</span>
+              <span class="tag">wouter</span>
+              <span class="tag">Radix UI</span>
+              <span class="tag">GitHub Pages</span>
+            </div>
+          </section>
+
+          <section id="generation-method">
+            <h2>生成链路：这类页面要说明“怎么生成”，不是只列结果</h2>
+            <p>
+              本文档页本身是一个静态交接页，用单文件 HTML/CSS/JS 生成阅读界面；右侧页面预览来自已发布 Web Deck 的逐页截图。
+              它不写回项目源码，也不依赖 0745购项目运行时才能阅读。
+            </p>
+
+            <div class="method-panel">
+              <div class="method-row">
+                <b>Page Build</b>
+                <span>说明页由本地 <code>index.html</code> 承载，CSS 负责 Awwwards 文章式排版，原生 JS 根据 <code>pageData</code> 与 <code>promptLibrary</code> 自动渲染 35 个页面条目。</span>
+              </div>
+              <div class="method-row">
+                <b>Deck Source</b>
+                <span>逐页信息来自 0745购 Web Deck 的 React 组件结构、页面清单、素材文档与提示词文档；页面组件仍位于原项目 <code>SlidesA-J.tsx</code>、<code>SlideKit.tsx</code>、<code>Deck.tsx</code> 等模块。</span>
+              </div>
+              <div class="method-row">
+                <b>Preview Shot</b>
+                <span>右侧预览图用本地 Headless Chrome / CDP 按 <code>#1</code> 到 <code>#35</code> 打开已构建 deck，截取 16:9 JPEG，保存到 <code>assets/slides/page-xx.jpg</code>，只用于文档核对。</span>
+              </div>
+              <div class="method-row">
+                <b>Repo Boundary</b>
+                <span>本说明页保存在本地 <code>gou0745-tech-architecture-page/</code>。它不是 GitHub 原始项目的源码提交；公开站点发布仍由 <code>gh-pages</code> 分支承载。</span>
+              </div>
+            </div>
+          </section>
+
+          <section id="page-architecture">
+            <h2>页面架构：一条主线，四个职责边界</h2>
+            <p>
+              页面主体由 <code>Home.tsx</code> 组织 slide 顺序，由 <code>Deck.tsx</code> 处理运行时导航，由
+              <code>SlideKit.tsx</code> 承担共享视觉骨架，具体内容分散在 <code>SlidesA-J.tsx</code>。
+            </p>
+
+            <div class="arch-map" aria-label="页面架构图">
+              <div class="map-row">
+                <div class="map-label">Shell</div>
+                <div class="map-items">
+                  <div class="map-item"><b>App.tsx</b><span>Provider、ErrorBoundary、wouter routes、BASE_URL 兼容。</span></div>
+                  <div class="map-item"><b>main.tsx</b><span>React root，保持极薄入口。</span></div>
+                  <div class="map-item"><b>index.html</b><span>字体、viewport、favicon、Vite script 入口。</span></div>
+                </div>
+              </div>
+              <div class="map-row">
+                <div class="map-label">Runtime</div>
+                <div class="map-items">
+                  <div class="map-item"><b>Deck.tsx</b><span>键盘、滚轮、触摸、hash、翻页动画、页码和章节导航。</span></div>
+                  <div class="map-item"><b>Home.tsx</b><span>唯一 slide registry：id、node、dark、chapter index。</span></div>
+                  <div class="map-item"><b>ThemeContext</b><span>轻量主题层，当前默认 light。</span></div>
+                </div>
+              </div>
+              <div class="map-row">
+                <div class="map-label">Design</div>
+                <div class="map-items">
+                  <div class="map-item"><b>SlideKit.tsx</b><span>SlideShell、ChapterSlide、ActionTitle、StatBlock、ASSETS。</span></div>
+                  <div class="map-item"><b>index.css</b><span>OKLCH 色彩、字体系统、reveal、Ken Burns、stage-pad。</span></div>
+                  <div class="map-item"><b>components/ui</b><span>可扩展 UI primitives，不承载业务内容。</span></div>
+                </div>
+              </div>
+              <div class="map-row">
+                <div class="map-label">Content</div>
+                <div class="map-items">
+                  <div class="map-item"><b>SlidesA-J</b><span>一组一主题，包含真实业务文案和页面排版。</span></div>
+                  <div class="map-item"><b>assets/docs</b><span>提示词、页面说明、设计规范、素材说明。</span></div>
+                  <div class="map-item"><b>manus-storage</b><span>发布产物中的稳定静态资源目录。</span></div>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              后续维护时，不建议在 <code>Deck.tsx</code> 写业务页面逻辑，也不建议在 slide 文件里重复实现页眉、页码、章节标题。
+              这类重复逻辑应该收敛到 <code>SlideKit.tsx</code> 或 <code>index.css</code>。
+            </p>
+          </section>
+
+          <section id="page-matrix">
+            <h2>逐页实现矩阵：每一页用了什么技术、什么素材、什么提示词</h2>
+            <p>
+              下面这张矩阵按实际 35 页顺序整理。每个条目都直接展开显示页面 ID、React 组件、关键实现技术、主要素材、
+              完整提示词或素材来源说明，并在右侧放入对应页面预览，方便维护时逐页核对。
+            </p>
+            <p class="matrix-note">
+              使用方法：改某页时先看右侧预览确认目标页，再复制条目内的 prompt 重做图片；如果标注为「客户 PPT 提取」或「纯代码页面」，
+              表示该页没有独立 AI 生图提示词。
+            </p>
+            <div id="pageMatrix" class="page-matrix" aria-live="polite"></div>
+          </section>
+
+          <section id="skill-architecture">
+            <h2>Skill 架构：不是单个提示词，而是一套渐进披露的知识包</h2>
+            <p>
+              项目原始 skill 是 <code>shanshui-consulting-deck</code>。它更像“生产手册”：入口文件讲工作流，
+              <code>references/</code> 放详细设计与素材方法，<code>templates/</code> 放可复制的 Deck 骨架。
+            </p>
+
+            <div class="dark-block">
+              <h3>Skill 资源层级</h3>
+              <div class="dark-grid">
+                <div class="dark-card">
+                  <span class="num">01</span>
+                  <b>SKILL.md</b>
+                  <p>触发描述、核心工作流、设计速查、资源导航。保持短而清楚。</p>
+                </div>
+                <div class="dark-card">
+                  <span class="num">02</span>
+                  <b>references/</b>
+                  <p>设计规范、图片提示词、素材提取、修图与抠图规则。按需读取。</p>
+                </div>
+                <div class="dark-card">
+                  <span class="num">03</span>
+                  <b>templates/</b>
+                  <p>Deck、SlideKit、index.css 等可复制代码，避免每次从零写。</p>
+                </div>
+              </div>
+            </div>
+
+            <p>
+              这种结构的好处是：下次做同类“商务方案 Web Deck”时，Codex 不需要把所有历史文档一次性塞进上下文。
+              它先读 <code>SKILL.md</code>，只有在涉及修图、素材提取、页面规范时，才打开对应 reference。
+            </p>
+
+            <pre><code>skill/
+├── SKILL.md
+├── references/
+│   ├── design-spec.md
+│   ├── image-prompts.md
+│   ├── asset-extraction-and-layout.md
+│   └── retouch-and-cutout-design.md
+└── templates/
+    ├── Deck.tsx
+    ├── SlideKit.tsx
+    └── index.css</code></pre>
+          </section>
+
+          <section id="prompt-library">
+            <h2>提示词库：逐页可见，底部保留总索引</h2>
+            <p>
+              上方每个页面条目已经嵌入完整提示词。这里保留一份按素材编号聚合的总索引，方便查找同一张素材在哪些页面被复用，
+              后续升级时也能保持“逐页说明”和“素材库说明”一致。
+            </p>
+            <div id="promptLibrary" class="prompt-library" aria-live="polite"></div>
+          </section>
+
+          <section id="asset-publishing">
+            <h2>资产与发布：公开页最怕的不是代码错，而是资源路径错</h2>
+            <p>
+              源仓库存档在 <code>assets/</code>，运行时页面引用的是 <code>/manus-storage/&lt;文件名&gt;</code>。
+              GitHub Pages 是项目子路径，所以构建后必须把资源路径重写为
+              <code>/gou0745-proposal/manus-storage/</code>。
+            </p>
+
+            <figure class="breakout">
+              <div class="figure-grid">
+                <img src="assets/warehouse_clean.png" alt="仓库真实素材" loading="lazy" decoding="async" />
+                <img src="assets/app_home.png" alt="0745购 App 首页截图素材" loading="lazy" decoding="async" />
+              </div>
+              <figcaption>公开发布时，图片必须是原始素材或明确修图产物，不能用透明占位或临时 fallback。</figcaption>
+            </figure>
+
+            <ol>
+              <li><strong>源素材：</strong>存放在 <code>assets/images/generated</code>、<code>retouched</code>、<code>extracted_from_ppt</code>。</li>
+              <li><strong>运行引用：</strong>源码中使用 <code>/manus-storage/xxx_hash.png</code>。</li>
+              <li><strong>静态产物：</strong>构建后复制到 <code>dist/public/manus-storage/</code>。</li>
+              <li><strong>公开访问：</strong>GitHub Pages 上变为 <code>/gou0745-proposal/manus-storage/xxx_hash.png</code>。</li>
+            </ol>
+
+            <figure class="breakout">
+              <img src="assets/xiangxi_pattern_band.png" alt="湘西纹样横带素材" loading="lazy" decoding="async" />
+              <figcaption>被修复过的纹样文件应保持 MB 级原图体积；如果只有几十字节，基本就是占位。</figcaption>
+            </figure>
+          </section>
+
+          <section id="upgrade">
+            <h2>升级策略：允许演进，但每层只动自己的事</h2>
+            <p>
+              这个项目后续要升级，最重要的是分层升级。文案、视觉、依赖、发布链路不要混在一笔提交里。每个变更都要能回答：
+              “我改的是内容、框架、视觉系统、资产，还是部署？”
+            </p>
+
+            <h3>推荐升级顺序</h3>
+            <ol>
+              <li>内容更新：只改 <code>Slides*.tsx</code>，必要时改 <code>Home.tsx</code> slide 顺序。</li>
+              <li>视觉更新：优先改 <code>index.css</code> tokens，再改 <code>SlideKit.tsx</code>。</li>
+              <li>框架更新：单独升级 Vite、Tailwind、React 或 wouter，逐项验证。</li>
+              <li>发布更新：只动 <code>gh-pages</code> 产物，验证首页和关键图片 URL。</li>
+            </ol>
+
+            <h3>发布前检查</h3>
+            <pre><code>npx -y pnpm@10.4.1 install --frozen-lockfile
+npx -y pnpm@10.4.1 exec tsc --noEmit
+npx -y pnpm@10.4.1 exec vite build --base=/gou0745-proposal/
+test -f dist/public/.nojekyll
+test -f dist/public/404.html
+find dist/public/manus-storage -type f -size -2k -print
+curl -L -I https://paofuxiaomiao.github.io/gou0745-proposal/</code></pre>
+
+            <div class="callout">
+              若使用全局 pnpm v11+，可能会忽略当前 <code>package.json</code> 中旧式 <code>pnpm.overrides</code> 配置，
+              导致 frozen install 失败。维护时优先使用项目声明的 <code>pnpm@10.4.1</code>。
+            </div>
+          </section>
+
+          <section id="maintenance">
+            <h2>可维护性的最终判断：新人能不能接手</h2>
+            <p>
+              这个页面未来最常见的维护动作会是：替换某一页文案、增加一页对比稿、修一张图、重新发布。架构说明的价值，就是让接手者知道该去哪个文件改，改完跑什么命令，发布后检查哪个 URL。
+            </p>
+
+            <ul>
+              <li><strong>新增页面：</strong>新增 slide 组件，注册到 <code>Home.tsx</code>。</li>
+              <li><strong>改全局动效：</strong>修改 <code>Deck.tsx</code> 与 <code>index.css</code>。</li>
+              <li><strong>改设计语言：</strong>修改 token、字体、通用组件，不在单页里散落写死。</li>
+              <li><strong>改素材：</strong>原始素材归档，发布文件原名替换，线上 HEAD 检查体积。</li>
+              <li><strong>改部署：</strong>先在临时目录生成静态产物，再推 <code>gh-pages</code>。</li>
+            </ul>
+
+            <div class="footer-note">
+              本页参考 <code>awwwards-article-page.skill</code> 的编辑型文章格式生成：超大标题、白底阅读栏、右侧目录、图文穿插和技术卡片。
+              内容对应 0745购 Web Deck 的实际工程结构，用于项目交接、复盘、维护和升级；本页只作为本地技术说明文档，不改动 GitHub 原始源码分支。
+            </div>
+          </section>
+        </article>
+
+        <aside class="toc" aria-label="文章目录">
+          <div class="toc-title">Contents</div>
+          <a href="#overview" class="active">项目概览</a>
+          <a href="#tech-stack">技术栈</a>
+          <a href="#generation-method">生成链路</a>
+          <a href="#page-architecture">页面架构</a>
+          <a href="#page-matrix">逐页实现</a>
+          <a href="#skill-architecture">Skill 架构</a>
+          <a href="#prompt-library">提示词库</a>
+          <a href="#asset-publishing">资产与发布</a>
+          <a href="#upgrade">升级策略</a>
+          <a href="#maintenance">维护判断</a>
+          <div class="toc-links">
+            <a href="https://github.com/paofuxiaomiao/gou0745-proposal" target="_blank" rel="noreferrer">Repository</a>
+            <a href="https://paofuxiaomiao.github.io/gou0745-proposal/" target="_blank" rel="noreferrer">Live Site</a>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <script>
+      const pageData = [
+        {
+          no: 1,
+          id: "cover",
+          title: "封面原版：雾山湖泊全幅标题",
+          component: "CoverSlide / SlidesA",
+          tech: ["React TSX", "全屏绝对定位", "Ken Burns", "渐变遮罩", "CSS clamp 大标题", "reveal 错层动画"],
+          assets: "hero_mountains_hd、logo_icon",
+          prompts: ["P01", "PPT"]
+        },
+        {
+          no: 2,
+          id: "coverv2",
+          title: "封面 V2：左对齐信息轴与单位署名",
+          component: "CoverSlideV2 / SlidesF",
+          tech: ["React TSX", "同图多版式", "信息轴布局", "CSS clamp", "毛玻璃/细线层次", "reveal 动画"],
+          assets: "hero_mountains_hd、logo_icon",
+          prompts: ["P01", "PPT"]
+        },
+        {
+          no: 3,
+          id: "agenda",
+          title: "汇报框架目录：四章索引",
+          component: "AgendaSlide / SlidesA",
+          tech: ["CSS Grid", "左轴版式", "hairline 连接线", "Inter 编号", "无图片目录页"],
+          assets: "CSS 等高线纹理",
+          prompts: ["NOAI"]
+        },
+        {
+          no: 4,
+          id: "ch1",
+          title: "章节01 张力页：深色水流背景",
+          component: "Chapter1Slide / SlidesA",
+          tech: ["ChapterSlide 模式", "全幅摄影", "深色 overlay", "Ken Burns", "超大章节编号"],
+          assets: "water_flow_hd",
+          prompts: ["P02"]
+        },
+        {
+          no: 5,
+          id: "ch1v2",
+          title: "章节01 V2：溪流摄影重构版",
+          component: "Chapter1SlideV2 / SlidesA",
+          tech: ["React TSX", "章节页变体", "竖排/错位标题", "全幅背景", "reveal 动画"],
+          assets: "water_flow_hd 变体",
+          prompts: ["P02", "V2-02"]
+        },
+        {
+          no: 6,
+          id: "ch1v1b",
+          title: "章节01 V1B：旧水流背景对比版",
+          component: "Chapter1SlideV1B / SlidesF",
+          tech: ["对比版本页", "全幅暗色摄影", "章节信息重排", "Ken Burns", "overlay"],
+          assets: "water_flow 旧图",
+          prompts: ["P02"]
+        },
+        {
+          no: 7,
+          id: "positioning",
+          title: "平台定位：广电背书与信用锚点",
+          component: "PositioningSlide / SlidesA",
+          tech: ["SlideShell", "结论式标题", "三卡片锚点", "StatBlock/标签", "logo header"],
+          assets: "logo_icon",
+          prompts: ["PPT"]
+        },
+        {
+          no: 8,
+          id: "trinity",
+          title: "三位一体模式：SaaS / 运营 / 供应链",
+          component: "TrinitySlide / SlidesA",
+          tech: ["SlideShell", "非对称 CSS Grid", "卡片系统", "hairline", "brand-dot"],
+          assets: "无外部图片",
+          prompts: ["NOAI"]
+        },
+        {
+          no: 9,
+          id: "ch2",
+          title: "章节02：岩层与织锦纹样",
+          component: "Chapter2Slide / SlidesB",
+          tech: ["ChapterSlide 模式", "文化纹样叠层", "全幅背景", "overlay", "Ken Burns"],
+          assets: "stone_xiangxi_hd、xiangxi_pattern_band",
+          prompts: ["P03", "P06"]
+        },
+        {
+          no: 10,
+          id: "org",
+          title: "组织架构图：层级树与连接线",
+          component: "OrgSlide / SlidesB",
+          tech: ["SlideShell", "层级组织树", "CSS 连接线", "纹样装饰带", "响应式网格"],
+          assets: "xiangxi_pattern_band",
+          prompts: ["P06"]
+        },
+        {
+          no: 11,
+          id: "team",
+          title: "团队介绍：研发/供应链/运营矩阵",
+          component: "TeamSlide / SlidesB",
+          tech: ["SlideShell", "能力矩阵", "三列信息卡", "标签系统", "无图数据页"],
+          assets: "无外部图片",
+          prompts: ["NOAI"]
+        },
+        {
+          no: 12,
+          id: "ch3",
+          title: "章节03 原版：高山湖泊生态",
+          component: "Chapter3Slide / SlidesC",
+          tech: ["ChapterSlide 模式", "全幅生态摄影", "横向渐变遮罩", "Ken Burns"],
+          assets: "lake_ecosystem_hd / lake_photo",
+          prompts: ["P05"]
+        },
+        {
+          no: 13,
+          id: "ch3v2",
+          title: "章节03 V2：生态河谷数据轴",
+          component: "Chapter3SlideV2 / SlidesC",
+          tech: ["React TSX", "全屏背景", "底部数据轴", "CSS Grid", "深浅 overlay"],
+          assets: "lake_ecosystem_hd",
+          prompts: ["P05", "P09"]
+        },
+        {
+          no: 14,
+          id: "ch3v3",
+          title: "章节03 V3：白鹭夜谷电影感",
+          component: "Chapter3SlideV3 / SlidesF",
+          tech: ["暗色电影页", "动物摄影主视觉", "多图层合成", "强对比标题", "Ken Burns"],
+          assets: "night_egret_valley、night_birds_forest",
+          prompts: ["P07", "P08", "V2-04"]
+        },
+        {
+          no: 15,
+          id: "ch3v4",
+          title: "章节03 V4：白底动物志",
+          component: "Chapter3SlideV4 / SlidesF",
+          tech: ["暖白底画册版式", "透明 PNG 抠图", "三主体错落", "落地线", "彩色阴影"],
+          assets: "animal_egret_cutout、animal_pheasant_cutout、animal_kingfisher_cutout",
+          prompts: ["P10", "P11", "P12"]
+        },
+        {
+          no: 16,
+          id: "ecosystem",
+          title: "全域供给生态：线上线下四象限",
+          component: "EcosystemSlide / SlidesC",
+          tech: ["SlideShell", "四象限信息架构", "品牌证据卡", "数据块", "logo/image 混排"],
+          assets: "brand_jd、brand_meituan、brand_xupu 等",
+          prompts: ["PPT"]
+        },
+        {
+          no: 17,
+          id: "brands3",
+          title: "三大供给支柱：京东/美团/溆浦",
+          component: "BrandTripleSlide / SlidesG",
+          tech: ["三卡片系统", "真实 App 截图嵌入", "品牌 logo 卡", "CSS Grid"],
+          assets: "brand_jd、brand_meituan、brand_xupu、app_mall",
+          prompts: ["PPT"]
+        },
+        {
+          no: 18,
+          id: "chains",
+          title: "大牌连锁：品牌卡片与权益说明",
+          component: "ChainBrandSlide / SlidesG",
+          tech: ["品牌卡组", "证据式图片陈列", "浅色卡片", "横向信息带"],
+          assets: "brand_chains_card",
+          prompts: ["PPT"]
+        },
+        {
+          no: 19,
+          id: "cinema",
+          title: "影院订票原版：暗色权益说明",
+          component: "CinemaSlide / SlidesG",
+          tech: ["暗色信息页", "权益条目", "无图氛围页", "高对比排版"],
+          assets: "无外部图片",
+          prompts: ["NOAI"]
+        },
+        {
+          no: 20,
+          id: "cinemav2",
+          title: "影院订票 V2：影厅实景 + 手机场景",
+          component: "CinemaSceneSlide / SlidesI",
+          tech: ["全幅暗场景", "手机图片叠放", "浅景深视觉", "overlay", "cinematic layout"],
+          assets: "cinema_scene、hand_phone_cinema",
+          prompts: ["P20", "P21"]
+        },
+        {
+          no: 21,
+          id: "alliance",
+          title: "本地商家联盟原版：门店与联盟截图",
+          component: "LocalAllianceSlide / SlidesG",
+          tech: ["产品截图证据页", "本地照片辅助", "数据标签", "卡片布局"],
+          assets: "app_alliance、offline_photo",
+          prompts: ["PPT"]
+        },
+        {
+          no: 22,
+          id: "alliancev3",
+          title: "联盟 V3：洁净信息层级",
+          component: "AllianceCleanSlide / SlidesI",
+          tech: ["重构信息层级", "手机截图主视觉", "浅色卡片", "结论标题"],
+          assets: "app_alliance",
+          prompts: ["PPT"]
+        },
+        {
+          no: 23,
+          id: "alliancev2",
+          title: "联盟 logo 墙平铺版",
+          component: "AllianceLogoWallSlide / SlidesH",
+          tech: ["29 家 logo 网格", "等距卡片", "分类标签", "响应式密集排版"],
+          assets: "merchant logo ×29",
+          prompts: ["PPT"]
+        },
+        {
+          no: 24,
+          id: "wallv2",
+          title: "logo 墙空间纵深版",
+          component: "LogoWallSpatialSlide / SlidesI",
+          tech: ["透视错落排布", "景深模糊", "CSS transform", "空间层级"],
+          assets: "merchant logo ×29",
+          prompts: ["PPT"]
+        },
+        {
+          no: 25,
+          id: "product",
+          title: "产品界面总览：多手机 3D 展示",
+          component: "ProductShowcaseSlide / SlidesE",
+          tech: ["CSS perspective", "手机截图阵列", "rotate/translate", "产品证据展示"],
+          assets: "app_home、app_wallet、app_alliance",
+          prompts: ["PPT"]
+        },
+        {
+          no: 26,
+          id: "assets",
+          title: "实体资产原版：楼/店/仓实拍",
+          component: "RealAssetsSlide / SlidesH",
+          tech: ["证据式图片陈列", "实拍修图展示", "资产卡片", "三图并置"],
+          assets: "dasheng_hd、storefront_hd、warehouse_hd",
+          prompts: ["P13", "P18", "P19"]
+        },
+        {
+          no: 27,
+          id: "assetsv2",
+          title: "资产 V2：明亮版与抠图立面",
+          component: "AssetsBrightSlide / SlidesI",
+          tech: ["明亮视觉重构", "抠图立面", "floorplan 证据", "多资产卡片"],
+          assets: "dasheng_bright、warehouse_bright、storefront_cutout_t、floorplan_raw",
+          prompts: ["P14", "P18", "P19", "PPT"]
+        },
+        {
+          no: 28,
+          id: "assetsv3",
+          title: "资产 V3：电影级大楼与洁净仓储",
+          component: "AssetsCinematicSlide / SlidesJ",
+          tech: ["鼠标 3D 视差", "光泽扫过", "商业地产 hero shot", "楼店仓货数据条", "CSS transform"],
+          assets: "dasheng_hero_lowangle、warehouse_clean_v2、aisle_clean_v2、floorplan_raw",
+          prompts: ["P15", "P16", "P17", "PPT"]
+        },
+        {
+          no: 29,
+          id: "flow",
+          title: "落地闭环原版：线上线下流程图",
+          component: "FlowSlide / SlidesC",
+          tech: ["流程图布局", "水流线条隐喻", "双路径信息架构", "CSS 连接线"],
+          assets: "无外部图片",
+          prompts: ["NOAI"]
+        },
+        {
+          no: 30,
+          id: "flowv2",
+          title: "流程 V2：六步图解与 UI 截图",
+          component: "FlowDetailSlide / SlidesI",
+          tech: ["双泳道流程", "六步截图卡", "手机 UI 证据", "颜色分组", "CSS Grid"],
+          assets: "app_scan、ui_pay_confirm、ui_merchant_notify、app_product、ui_delivery_status",
+          prompts: ["P22", "P23", "P24", "PPT"]
+        },
+        {
+          no: 31,
+          id: "offline",
+          title: "线下支付流程叙事",
+          component: "OfflineFlowSlide / SlidesE",
+          tech: ["三步流程", "手机截图卡", "线下照片证据", "叙事式版式"],
+          assets: "app_scan、app_wallet、offline_photo",
+          prompts: ["PPT"]
+        },
+        {
+          no: 32,
+          id: "online",
+          title: "线上消费场景：商城/商品/外卖",
+          component: "OnlineScenesSlide / SlidesE",
+          tech: ["多场景截图组合", "三列设备展示", "产品链路说明", "CSS perspective"],
+          assets: "app_mall、app_product、app_meituan",
+          prompts: ["PPT"]
+        },
+        {
+          no: 33,
+          id: "ch4",
+          title: "章节04：雾林生长隐喻",
+          component: "Chapter4Slide / SlidesD",
+          tech: ["ChapterSlide 模式", "全幅雾林摄影", "overlay", "Ken Burns", "未来展望语气"],
+          assets: "forest_mist_hd",
+          prompts: ["P04", "V2-03"]
+        },
+        {
+          no: 34,
+          id: "goals",
+          title: "预期目标：短中长期路线图",
+          component: "GoalsSlide / SlidesD",
+          tech: ["SlideShell", "阶段路线图", "StatBlock", "卡片与时间轴", "无图数据页"],
+          assets: "无外部图片",
+          prompts: ["NOAI"]
+        },
+        {
+          no: 35,
+          id: "end",
+          title: "结尾页：二维码与吉祥物",
+          component: "EndSlide / SlidesD",
+          tech: ["结束页版式", "二维码引导", "品牌吉祥物点缀", "留白大标题"],
+          assets: "qrcode、mascot、logo_icon",
+          prompts: ["PPT"]
+        }
+      ];
+
+      const promptLibrary = {
+        P01: { kind: "氛围背景", title: "hero_mountains_hd：封面主视觉", text: "湘西雾中喀斯特群山与静谧湖面，清晨薄雾缭绕在青绿色山峰之间，湖水如镜倒映群山，近岸有葱郁树林，画面上部留出大面积柔和天空负空间用于排版超大标题。低饱和青绿色调，雾面质感，中国山水画般的留白气韵，真实风光摄影，高清细节，宁静、笃定、高级的商务氛围。无文字。" },
+        "V2-02": { kind: "逐字重制", title: "water_flow_v2：暗调溪流长曝光", text: "深色调的溪流长曝光摄影特写，丝绸般顺滑的水流从深色岩石之间蜿蜒流过，水流轨迹形成优雅的S形曲线。整体为深墨绿与炭黑色调，画面大部分处于暗部阴影之中，仅水流的高光部分被月光般的冷光提亮，形成强烈的明暗对比。抽象、克制、富有流动感，隐喻交易与资金的持续流动。真实摄影质感，超高清，画面中不出现任何文字、水印或人物。" },
+        "V2-03": { kind: "逐字重制", title: "forest_mist_v2：雾中杉林", text: "湘西山地清晨的雾中森林，晨雾在高大的杉树与阔叶林之间缓缓流动，逆光下树影一层层向远处递退消失在雾中，形成丰富的空气透视层次。整体为青灰与松绿色调，画面右上方留有大面积雾白色负空间用于排版文字。象征生态生长与未来展望的宁静意境。真实风光摄影，低饱和高级感，超高清，画面中不出现任何文字、水印或人物。" },
+        "V2-04": { kind: "逐字重制", title: "night_egret_v2：白鹭夜谷", text: "夜色中的湘西河谷，一只白鹭展开双翼在深蓝黑色的夜幕与水面薄雾之间低飞掠过，月光在它的羽翼边缘和水面波纹上留下细腻的银色高光。背景是深色的山体剪影与若隐若现的稀疏星光，画面整体极暗但白鹭主体清晰锐利，具有电影般的光影质感，神秘、宁静而高级。真实野生动物摄影质感，超高清，画面中不出现任何文字、水印或人物。" },
+        P02: { kind: "氛围背景", title: "water_flow_hd：章节01水流抽象", text: "深色调溪流长曝光摄影特写，丝绸般的水流从岩石间流过，深墨绿与炭黑色调，水流轨迹形成优雅的曲线，画面大部分处于暗部阴影中，仅水流高光提亮，抽象而克制，隐喻交易与流程的持续流动。真实摄影质感，高清，无文字。" },
+        P03: { kind: "氛围背景", title: "stone_xiangxi_hd：岩层与纹样", text: "湘西沉积岩层理特写摄影，深灰与暖褐色调的岩石断面纹理层层叠叠，纹理走向富有节奏感，局部隐约融入苗绣/侗锦的几何菱形纹样浮雕感（若隐若现，透明度极低），象征稳固的层级架构与本地文化底蕴。低饱和，雾面，高清真实质感，无文字。" },
+        P04: { kind: "氛围背景", title: "forest_mist_hd：章节04雾林", text: "湘西山地雾中森林，晨雾在杉树与阔叶林间流动，逆光下树影层层递远，青灰与松绿色调，画面留有大面积雾白负空间，象征生态生长与未来展望。真实风光摄影，低饱和高级感，高清，无文字。" },
+        P05: { kind: "氛围背景", title: "lake_ecosystem_hd：高山湖泊生态", text: "俯瞰湘西高山湖泊与环绕的绿色山林生态，湖面平静如翡翠，山林呈现出丰富的绿色层次，薄雾漂浮，画面构图开阔宁静，隐喻完整的生态闭环。真实航拍风光摄影，低饱和青绿色调，高清，无文字。" },
+        P06: { kind: "装饰素材", title: "xiangxi_pattern_band：苗绣/侗锦纹样横带", text: "湘西苗绣与侗锦几何纹样的极简线稿横带，菱形、回纹与八角花母题以细线描绘，单色深松墨绿线条，透明背景，装饰带形式，克制而精致，现代设计语言重新演绎传统纹样。矢量插画风格，无文字。" },
+        P07: { kind: "动物场景", title: "night_egret_valley：白鹭夜谷", text: "夜色中的湘西河谷，一只白鹭在深蓝黑色的夜幕与雾气中展翅低飞掠过水面，月光在其羽翼与水面留下细腻高光，背景是深色山影与稀疏星光，画面极暗但主体清晰，电影感光影，神秘而高级。真实野生动物摄影质感，高清，无文字。" },
+        P08: { kind: "动物场景", title: "night_birds_forest：夜林群鸟", text: "夜晚湘西密林剪影，数只飞鸟从深蓝夜空中的树冠间飞起，仅有月光轮廓光勾勒鸟群与枝叶边缘，深邃、静谧、富有生命力。电影级暗调摄影，高清，无文字。" },
+        P09: { kind: "备选场景", title: "day_wildlife_valley：日间生态河谷", text: "白天湘西河谷生态全景，白鹭群在浅滩觅食，远处青山如黛薄雾缭绕，河水清澈蜿蜒，自然光柔和，生机盎然而不喧闹。真实风光野生动物摄影，低饱和青绿色调，高清，无文字。" },
+        P10: { kind: "透明抠图", title: "animal_egret_cutout：白鹭", text: "一只优雅的白鹭站姿全身像，颈部呈S形曲线，羽毛细节清晰，姿态高贵宁静，纯透明背景抠图，真实摄影级细节，柔和自然光，适合作为高级画册的动物志插画元素。" },
+        P11: { kind: "透明抠图", title: "animal_pheasant_cutout：红腹锦鸡", text: "一只色彩华丽的红腹锦鸡全身侧面像，金红色羽冠与彩色尾羽细节丰富，姿态昂首优雅，纯透明背景抠图，真实摄影级细节，色彩鲜艳但光线柔和，高级画册动物志风格。" },
+        P12: { kind: "透明抠图", title: "animal_kingfisher_cutout：翠鸟", text: "一只蓝橙色普通翠鸟栖息姿态全身像，羽色宝石般鲜亮，眼神灵动，纯透明背景抠图，真实摄影级细节，柔和自然光，高级画册动物志风格。" },
+        P13: { kind: "AI 修图", title: "dasheng_hd：大晟大楼高清修复", text: "基于参考图增强这张城市建筑照片：保留大晟集团大楼的真实结构与全部招牌文字（楼顶“大晟集团”橙色大字、“0745购 数字化消费平台”粉色广告牌、“明月泉”招牌、“零食很忙”黄色门店），提升清晰度与细节锐度，天空改为温暖晴朗的傍晚色调，整体光影更通透，广告牌色彩更鲜亮。真实摄影质感。" },
+        P14: { kind: "AI 修图", title: "dasheng_bright：大楼亮色版", text: "基于参考图重新渲染：保留建筑结构与所有招牌文字不变，天空改为清透的蓝天白云，白天明亮自然光，玻璃幕墙干净反光，街道整洁，整体清爽明亮不偏黄。真实摄影质感，高清。" },
+        P15: { kind: "AI 修图", title: "dasheng_hero_lowangle：仰视崭新大楼", text: "基于参考图重新渲染这座大厦：保留建筑的真实结构与所有招牌——楼顶橙色「大晟集团」大字、楼体中部粉红色「0745购 数字化消费平台」广告牌、右侧蓝白「明月泉」招牌、楼下黄色「零食很忙」门店，文字内容与位置必须与原图一致、清晰可读。改变：构图改为从街面广角仰视视角，晴朗蓝天白云，玻璃幕墙崭新锃亮，街道整洁，高清建筑摄影风格。" },
+        P16: { kind: "AI 修图", title: "warehouse_clean_v2：明亮卫生仓库", text: "基于参考图重新渲染这个饮料食品仓储中心：保留原有空间结构（白色立柱、天花管道、吊扇、托盘上成堆的矿泉水、饮料、纸箱货品）与货品堆放布局。改变：整体光线更明亮通透，地面改为浅灰环氧地坪，墙面天花洁白如新，货品摆放更整齐规整，现代化洁净仓储物流中心官方宣传照风格，真实摄影质感。" },
+        P17: { kind: "AI 修图", title: "aisle_clean_v2：货架通道明亮版", text: "基于参考图重新渲染这个集采中心货架通道：保留两侧货架对称透视构图与商品内容。改变：整体更明亮清透，天花灯带明亮均匀，地面干净反光，货架银白崭新，商品摆放整齐划一、标签朝外，现代零售仓储商店官方宣传照风格，真实摄影质感。" },
+        P18: { kind: "AI 修图", title: "storefront 系列：门头亮色/抠图", text: "亮色版：基于参考图重新渲染这个门店门头照片：保留门头招牌全部文字与建筑结构，去除树影遮挡，粉色招牌色彩鲜亮干净，白天明亮自然光，整体清爽通透。立面抠图版：将参考图中的门店建筑立面主体完整抠出，去除天空、街道与周边环境，输出建筑立面主体，背景填充纯绿色 #00FF00（后期以 chroma key 转透明），边缘干净利落。" },
+        P19: { kind: "AI 修图", title: "warehouse_bright / warehouse_hd：仓库亮色版", text: "基于参考图提亮这张仓储照片：保留货品与空间结构，整体白净明亮，地面干净，光线均匀无暗角，色彩自然不偏黄。真实摄影质感，高清。" },
+        P20: { kind: "场景生成", title: "cinema_scene：影院实景背景", text: "现代电影院放映厅内景，深红色座椅整齐排列，银幕散发柔和光晕照亮前排，暗调电影感光影，画面左侧留出较暗负空间用于排版文字，氛围沉浸而高级。真实摄影质感，高清，无文字。" },
+        P21: { kind: "场景生成", title: "hand_phone_cinema：手持手机订票场景", text: "一只手在电影院暗环境中手持智能手机，手机屏幕明亮显示购票界面（屏幕内容后期替换），背景是虚化的影院座椅与银幕光晕，浅景深，电影感，真实摄影质感。" },
+        P22: { kind: "UI 生成", title: "ui_pay_confirm：支付确认页", text: "手机支付确认页 UI 设计图：顶部显示待支付金额「¥68.00」大字，下方支付方式列表——「福利钱包」选项已选中（品牌紫 #6D5BD0 勾选态，显示余额），「微信支付」未选中；底部品牌紫色「确认支付」大按钮。简体中文界面，暖白色背景，现代极简电商支付风格，圆角卡片，清晰锐利，真实 App 截图质感。" },
+        P23: { kind: "UI 生成", title: "ui_merchant_notify：商户到账播报页", text: "商户端收款到账通知页 UI 设计图：顶部绿色对勾成功图标，「+¥68.00 已到账」大字金额，下方到账详情卡片（付款方、支付方式：福利钱包、到账时间、订单号），底部小字提示「语音播报：0745购到账68元」。简体中文界面，暖白背景，现代极简商户端风格，清晰锐利，真实 App 截图质感。" },
+        P24: { kind: "UI 生成", title: "ui_delivery_status：履约配送状态页", text: "外卖/物流配送状态页 UI 设计图：顶部简约地图区域显示骑手位置与路线，中部「骑手配送中 · 预计 12:35 送达」状态大字，下方时间轴步骤（已接单→商家备餐完成→骑手已取餐→配送中），品牌紫 #6D5BD0 作为进行中状态色。简体中文界面，暖白背景，现代极简外卖 App 风格，清晰锐利，真实 App 截图质感。" },
+        PPT: { kind: "客户素材", title: "客户 PPT 提取素材", text: "商家 logo 墙 29 家、App 真实截图、门店实拍、平面图、吉祥物、品牌 Logo 与二维码均提取自客户原始 PPT，非 AI 生成，无提示词；仅做裁切、圆角化或无损整理。" },
+        NOAI: { kind: "纯代码页面", title: "无 AI 图片提示词", text: "该页主要由 React 组件、CSS Grid/Flex、Tailwind utility、SlideShell/Deck 运行时和文本内容实现，没有独立 AI 生成图片提示词。" }
+      };
+
+      const escapeHTML = (value) =>
+        String(value).replace(/[&<>"']/g, (char) => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        })[char]);
+
+      const renderPills = (items, className) =>
+        items.map((item) => `<span class="${className}">${escapeHTML(item)}</span>`).join("");
+
+      const previewPath = (pageNo) => `assets/slides/page-${String(pageNo).padStart(2, "0")}.jpg`;
+
+      const renderPromptBlocks = (keys) => `
+        <div class="inline-prompts">
+          ${keys.map((key) => {
+            const prompt = promptLibrary[key] || {
+              kind: "未登记",
+              title: "提示词未登记",
+              text: "该提示词编号暂未在 promptLibrary 中登记，请回到素材文档补齐。"
+            };
+            return `
+              <div class="inline-prompt">
+                <div class="inline-prompt-head">
+                  <span class="inline-prompt-no">${escapeHTML(key)}</span>
+                  <span class="inline-prompt-title">${escapeHTML(prompt.title)}</span>
+                  <span class="inline-prompt-kind">${escapeHTML(prompt.kind)}</span>
+                </div>
+                <div class="inline-prompt-text">${escapeHTML(prompt.text)}</div>
+              </div>
+            `;
+          }).join("")}
+        </div>
+      `;
+
+      const renderGenerationMethod = (page) => {
+        const aiKeys = page.prompts.filter((key) => key !== "PPT" && key !== "NOAI");
+        const hasPPT = page.prompts.includes("PPT");
+        const hasNoAI = page.prompts.includes("NOAI");
+        const promptKinds = page.prompts
+          .map((key) => `${key} / ${(promptLibrary[key] && promptLibrary[key].kind) || "未登记"}`)
+          .join("、");
+
+        let assetMethod = "素材来源需要补充。";
+        if (aiKeys.length && hasPPT) {
+          assetMethod = `AI 生图或 AI 修图素材使用 ${aiKeys.join("、")}；客户 PPT、App 截图、logo、二维码等真实素材使用 PPT 提取流程，两类素材在 slide 组件中合成。`;
+        } else if (aiKeys.length) {
+          assetMethod = `视觉素材由 ${aiKeys.join("、")} 对应 prompt 生成或修图，生成后进入 manus-storage 静态资源目录，再由 ASSETS 映射引用。`;
+        } else if (hasPPT) {
+          assetMethod = "素材来自客户原始 PPT、真实 App 截图、logo 或实拍图片；生成步骤是提取、裁切、压缩、圆角化或无损整理，不使用 AI 生图。";
+        } else if (hasNoAI) {
+          assetMethod = "该页无独立图片生成流程，主要依赖 React 组件、CSS Grid/Flex、字体层级、线条与文本数据完成页面生成。";
+        }
+
+        return `
+          <div class="generation-note">
+            <div class="generation-step">
+              <b>页面生成</b>
+              <span>由 ${escapeHTML(page.component)} 生成，注册到 <code>Home.tsx</code> 的 slide registry，并通过 <code>Deck.tsx</code> 提供 hash 翻页、键盘/滚轮/触摸导航和页码状态。</span>
+            </div>
+            <div class="generation-step">
+              <b>视觉技术</b>
+              <span>核心实现使用 ${escapeHTML(page.tech.join("、"))}；共享壳层来自 <code>SlideKit.tsx</code>，全局字体、OKLCH token、reveal 动画和 Ken Burns 等效果由 <code>index.css</code> 统一维护。</span>
+            </div>
+            <div class="generation-step">
+              <b>素材技术</b>
+              <span>${escapeHTML(assetMethod)}当前条目对应来源：${escapeHTML(promptKinds)}。</span>
+            </div>
+            <div class="generation-step">
+              <b>预览技术</b>
+              <span>右侧图不是手工占位，而是从已构建的 Web Deck 打开 <code>#${page.no}</code> 后用 Headless Chrome / CDP 截取的 16:9 JPEG，保存为 <code>${previewPath(page.no)}</code>。</span>
+            </div>
+          </div>
+        `;
+      };
+
+      document.getElementById("pageMatrix").innerHTML = pageData.map((page) => `
+        <details class="page-card" open>
+          <summary>
+            <span class="page-no">${String(page.no).padStart(2, "0")} · ${escapeHTML(page.id)}</span>
+            <span class="page-title">${escapeHTML(page.title)}</span>
+            <span class="page-component">${escapeHTML(page.component)}</span>
+            <span class="page-summary-thumb" aria-hidden="true">
+              <img src="${previewPath(page.no)}" alt="" loading="lazy" decoding="async" />
+            </span>
+          </summary>
+          <div class="page-detail">
+            <div class="page-detail-main">
+              <div class="detail-label">Implementation Tech</div>
+              <div class="tech-list">${renderPills(page.tech, "tech-pill")}</div>
+              <div class="detail-label">Generation Method</div>
+              ${renderGenerationMethod(page)}
+              <div class="detail-label">Assets</div>
+              <div>${escapeHTML(page.assets)}</div>
+              <div class="detail-label">Prompt / Source</div>
+              <div class="tech-list">${renderPills(page.prompts, "prompt-chip")}</div>
+              ${renderPromptBlocks(page.prompts)}
+            </div>
+            <figure class="page-preview">
+              <img src="${previewPath(page.no)}" alt="第 ${page.no} 页：${escapeHTML(page.title)}" loading="lazy" decoding="async" />
+              <figcaption>对应页面预览 · ${String(page.no).padStart(2, "0")} / 35</figcaption>
+            </figure>
+          </div>
+        </details>
+      `).join("");
+
+      const promptOrder = [
+        "P01", "P02", "P03", "P04", "P05", "P06", "P07", "P08", "P09", "P10", "P11", "P12",
+        "P13", "P14", "P15", "P16", "P17", "P18", "P19", "P20", "P21", "P22", "P23", "P24",
+        "V2-02", "V2-03", "V2-04", "PPT", "NOAI"
+      ];
+
+      document.getElementById("promptLibrary").innerHTML = promptOrder.map((key) => {
+        const prompt = promptLibrary[key];
+        return `
+          <details class="prompt-card">
+            <summary>
+              <span class="prompt-no">${escapeHTML(key)}</span>
+              <span class="prompt-title">${escapeHTML(prompt.title)}</span>
+              <span class="prompt-kind">${escapeHTML(prompt.kind)}</span>
+            </summary>
+            <div class="prompt-detail">
+              <div class="prompt-text">${escapeHTML(prompt.text)}</div>
+            </div>
+          </details>
+        `;
+      }).join("");
+
+      const links = Array.from(document.querySelectorAll(".toc a[href^='#']"));
+      const sections = links
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            links.forEach((link) => link.classList.remove("active"));
+            const active = document.querySelector(`.toc a[href="#${entry.target.id}"]`);
+            if (active) active.classList.add("active");
+          });
+        },
+        { rootMargin: "-16% 0px -68% 0px", threshold: 0.01 }
+      );
+
+      sections.forEach((section) => observer.observe(section));
+    </script>
+  </body>
+</html>
