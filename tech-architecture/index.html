@@ -370,6 +370,133 @@
         line-height: 1.72;
       }
 
+      .evidence-flow {
+        width: min(900px, calc(100vw - 56px));
+        margin: 58px 0 52px;
+        border-top: 1px solid #111;
+        font-family: var(--sans);
+      }
+
+      .evidence-heading {
+        display: grid;
+        grid-template-columns: 176px minmax(0, 1fr);
+        gap: 24px;
+        padding: 18px 0 24px;
+      }
+
+      .evidence-heading span {
+        color: #777;
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .evidence-heading p {
+        margin: 0;
+        color: #111;
+        font-size: 14px;
+        font-weight: 800;
+        line-height: 1.6;
+      }
+
+      .evidence-case {
+        display: grid;
+        grid-template-columns: 176px minmax(0, 1fr);
+        gap: 24px;
+        align-items: start;
+        padding: 32px 0 42px;
+        border-top: 1px solid #e6e6e6;
+      }
+
+      .evidence-index {
+        display: block;
+        margin-bottom: 12px;
+        color: #999;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .evidence-copy h3 {
+        margin: 0 0 12px;
+        font-size: 1rem;
+        line-height: 1.35;
+      }
+
+      .evidence-copy p {
+        margin: 0;
+        color: #666;
+        font-size: 12.5px;
+        line-height: 1.72;
+      }
+
+      .evidence-media,
+      .retouch-compare,
+      .retouch-shot {
+        margin: 0;
+      }
+
+      .evidence-media img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border: 1px solid #e5e5e5;
+        background: #f7f7f7;
+        object-fit: cover;
+      }
+
+      .evidence-media figcaption,
+      .retouch-compare > figcaption {
+        margin-top: 10px;
+        color: #888;
+        font-family: var(--sans);
+        font-size: 10.5px;
+        line-height: 1.55;
+      }
+
+      .retouch-compare {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .retouch-shot {
+        position: relative;
+        overflow: hidden;
+        background: #eee;
+      }
+
+      .retouch-shot img {
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .retouch-shot.after img {
+        object-position: center 58%;
+      }
+
+      .media-label {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 1;
+        padding: 5px 7px;
+        background: #111;
+        color: white;
+        font-family: var(--mono);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+      }
+
+      .retouch-compare > figcaption {
+        grid-column: 1 / -1;
+      }
+
       .refining-quote {
         position: relative;
         width: min(820px, calc(100vw - 56px));
@@ -937,6 +1064,7 @@
         .arch-map,
         .method-panel,
         .advantage-ledger,
+        .evidence-flow,
         .refining-quote {
           width: 100%;
         }
@@ -1054,6 +1182,24 @@
           grid-column: 2;
         }
 
+        .evidence-heading,
+        .evidence-case {
+          grid-template-columns: 1fr;
+          gap: 14px;
+        }
+
+        .evidence-heading {
+          padding-bottom: 20px;
+        }
+
+        .evidence-case {
+          padding: 26px 0 36px;
+        }
+
+        .evidence-copy p {
+          font-size: 13px;
+        }
+
         .refining-quote {
           padding: 28px 24px;
           font-size: 1.05rem;
@@ -1143,6 +1289,81 @@
                 <span class="advantage-no">04</span>
                 <b>不同于图片生成</b>
                 <p>页面由真实文字、布局规则和浏览器渲染构成，而非不可编辑的文生图海报；内容可维护、版式可升级、资产可追溯。</p>
+              </div>
+            </div>
+
+            <div class="evidence-flow" aria-label="项目优势证据链">
+              <div class="evidence-heading">
+                <span>Evidence Chain / 03</span>
+                <p>不是概念包装，而是从已有资料、真实产品和现场素材中提炼出的完整生产链。</p>
+              </div>
+
+              <div class="evidence-case">
+                <div class="evidence-copy">
+                  <span class="evidence-index">01 / Source PPT</span>
+                  <h3>通过原有 PPT 提取信息</h3>
+                  <p>
+                    先完整读取原有 17 页使用介绍，提取平台定位、商家资源、支付流程和真实界面截图；
+                    业务事实被保留并重组为可复用内容，而不是凭空补写。
+                  </p>
+                </div>
+                <figure class="evidence-media">
+                  <img
+                    src="assets/advantages/source-ppt-chain-brands.png"
+                    alt="原有0745购使用介绍PPT中的大牌连锁商家页面"
+                    loading="lazy"
+                    decoding="async" />
+                  <figcaption>输入证据 · 原有《“0745购”使用介绍 PPT（溆浦）》第 10 页，包含真实 App 页面与连锁品牌信息。</figcaption>
+                </figure>
+              </div>
+
+              <div class="evidence-case">
+                <div class="evidence-copy">
+                  <span class="evidence-index">02 / Prototype</span>
+                  <h3>有项目原型机展示</h3>
+                  <p>
+                    新版页面直接嵌入项目 App 原型与业务界面，用真实状态说明福利入口、品牌服务和操作路径；
+                    不用抽象插画代替产品，也让方案具备现场演示与后续核验能力。
+                  </p>
+                </div>
+                <figure class="evidence-media">
+                  <img
+                    src="assets/slides/page-18.jpg"
+                    alt="0745购项目新版PPT中的App原型机与全国连锁品牌展示"
+                    loading="lazy"
+                    decoding="async" />
+                  <figcaption>输出证据 · 新版第 18 / 35 页，真实原型机、品牌权益和业务路径在同一页面完成说明。</figcaption>
+                </figure>
+              </div>
+
+              <div class="evidence-case">
+                <div class="evidence-copy">
+                  <span class="evidence-index">03 / Retouch</span>
+                  <h3>融合修图，而不是替换真实现场</h3>
+                  <p>
+                    以现场照片为底，保留建筑轮廓、街区关系和品牌位置，再统一天空、光线、玻璃幕墙反射与广告牌质感。
+                    最终画面更具展示张力，同时仍可追溯到真实项目现场。
+                  </p>
+                </div>
+                <figure class="retouch-compare">
+                  <div class="retouch-shot">
+                    <span class="media-label">ORIGINAL</span>
+                    <img
+                      src="assets/advantages/retouch-before.jpg"
+                      alt="大晟集团建筑与0745购广告牌现场原图"
+                      loading="lazy"
+                      decoding="async" />
+                  </div>
+                  <div class="retouch-shot after">
+                    <span class="media-label">RETOUCHED</span>
+                    <img
+                      src="assets/advantages/retouch-after.jpg"
+                      alt="融合修图后的大晟集团建筑与0745购广告牌展示图"
+                      loading="lazy"
+                      decoding="async" />
+                  </div>
+                  <figcaption>现场原图 → 融合修图：增强天气、光照、建筑质感与品牌可见度，不改变项目真实主体。</figcaption>
+                </figure>
               </div>
             </div>
 
