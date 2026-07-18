@@ -957,7 +957,7 @@
         </a>
         <nav class="nav-links" aria-label="外部链接">
           <a href="https://github.com/paofuxiaomiao/gou0745-proposal" target="_blank" rel="noreferrer">GitHub</a>
-          <a class="pill-link" href="https://paofuxiaomiao.github.io/gou0745-proposal/" target="_blank" rel="noreferrer">Live Page</a>
+          <a class="pill-link" href="https://paofuxiaomiao.github.io/gou0745-tech-77ebc320/" target="_blank" rel="noreferrer">Live Page</a>
         </nav>
       </div>
     </header>
@@ -993,8 +993,8 @@
             </p>
 
             <div class="callout">
-              当前公开页面：<code>https://paofuxiaomiao.github.io/gou0745-proposal/</code>。公开资源路径使用
-              <code>/gou0745-proposal/manus-storage/</code>，一旦发布，文件名应视为稳定接口。
+              当前公开页面：<code>https://paofuxiaomiao.github.io/gou0745-tech-77ebc320/</code>。公开资源路径使用
+              <code>/gou0745-tech-77ebc320/manus-storage/</code>，一旦发布，文件名应视为稳定接口。
             </div>
           </section>
 
@@ -1175,7 +1175,7 @@
             <p>
               源仓库存档在 <code>assets/</code>，运行时页面引用的是 <code>/manus-storage/&lt;文件名&gt;</code>。
               GitHub Pages 是项目子路径，所以构建后必须把资源路径重写为
-              <code>/gou0745-proposal/manus-storage/</code>。
+              <code>/gou0745-tech-77ebc320/manus-storage/</code>。
             </p>
 
             <figure class="breakout">
@@ -1190,7 +1190,7 @@
               <li><strong>源素材：</strong>存放在 <code>assets/images/generated</code>、<code>retouched</code>、<code>extracted_from_ppt</code>。</li>
               <li><strong>运行引用：</strong>源码中使用 <code>/manus-storage/xxx_hash.png</code>。</li>
               <li><strong>静态产物：</strong>构建后复制到 <code>dist/public/manus-storage/</code>。</li>
-              <li><strong>公开访问：</strong>GitHub Pages 上变为 <code>/gou0745-proposal/manus-storage/xxx_hash.png</code>。</li>
+              <li><strong>公开访问：</strong>GitHub Pages 上变为 <code>/gou0745-tech-77ebc320/manus-storage/xxx_hash.png</code>。</li>
             </ol>
 
             <figure class="breakout">
@@ -1217,11 +1217,11 @@
             <h3>发布前检查</h3>
             <pre><code>npx -y pnpm@10.4.1 install --frozen-lockfile
 npx -y pnpm@10.4.1 exec tsc --noEmit
-npx -y pnpm@10.4.1 exec vite build --base=/gou0745-proposal/
+npx -y pnpm@10.4.1 exec vite build --base=/gou0745-tech-77ebc320/
 test -f dist/public/.nojekyll
 test -f dist/public/404.html
 find dist/public/manus-storage -type f -size -2k -print
-curl -L -I https://paofuxiaomiao.github.io/gou0745-proposal/</code></pre>
+curl -L -I https://paofuxiaomiao.github.io/gou0745-tech-77ebc320/</code></pre>
 
             <div class="callout">
               若使用全局 pnpm v11+，可能会忽略当前 <code>package.json</code> 中旧式 <code>pnpm.overrides</code> 配置，
@@ -1264,7 +1264,7 @@ curl -L -I https://paofuxiaomiao.github.io/gou0745-proposal/</code></pre>
           <a href="#maintenance">维护判断</a>
           <div class="toc-links">
             <a href="https://github.com/paofuxiaomiao/gou0745-proposal" target="_blank" rel="noreferrer">Repository</a>
-            <a href="https://paofuxiaomiao.github.io/gou0745-proposal/" target="_blank" rel="noreferrer">Live Site</a>
+            <a href="https://paofuxiaomiao.github.io/gou0745-tech-77ebc320/" target="_blank" rel="noreferrer">Live Site</a>
           </div>
         </aside>
       </div>
