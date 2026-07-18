@@ -307,6 +307,93 @@
         color: #171717;
       }
 
+      .callout code {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .advantage-kicker {
+        margin: 0 0 14px;
+        color: #777;
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .advantage-lede {
+        max-width: 660px;
+        color: #111;
+        font-size: 1.34rem;
+        font-weight: 500;
+        line-height: 1.72;
+      }
+
+      .advantage-ledger {
+        width: min(900px, calc(100vw - 56px));
+        margin: 40px 0 46px;
+        border-top: 2px solid #111;
+        border-bottom: 1px solid #111;
+        font-family: var(--sans);
+      }
+
+      .advantage-row {
+        display: grid;
+        grid-template-columns: 52px 158px minmax(0, 1fr);
+        gap: 20px;
+        align-items: baseline;
+        padding: 21px 0;
+        border-bottom: 1px solid #e8e8e8;
+      }
+
+      .advantage-row:last-child {
+        border-bottom: 0;
+      }
+
+      .advantage-no {
+        color: #999;
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+
+      .advantage-row b {
+        color: #111;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .advantage-row p {
+        margin: 0;
+        color: #555;
+        font-size: 13px;
+        line-height: 1.72;
+      }
+
+      .refining-quote {
+        position: relative;
+        width: min(820px, calc(100vw - 56px));
+        margin: 46px 0 36px;
+        padding: 34px 34px 34px 86px;
+        background: #0a0a0a;
+        color: white;
+        font-size: 1.2rem;
+        font-style: normal;
+        line-height: 1.78;
+      }
+
+      .refining-quote::before {
+        content: "METAL / 0745";
+        position: absolute;
+        top: 39px;
+        left: 24px;
+        color: #777;
+        font-family: var(--mono);
+        font-size: 9px;
+        letter-spacing: 0.08em;
+        writing-mode: vertical-rl;
+      }
+
       .stack-grid {
         margin: 34px 0 44px;
         display: grid;
@@ -848,7 +935,9 @@
         .breakout,
         .dark-block,
         .arch-map,
-        .method-panel {
+        .method-panel,
+        .advantage-ledger,
+        .refining-quote {
           width: 100%;
         }
 
@@ -878,6 +967,12 @@
       }
 
       @media (max-width: 720px) {
+        h1 {
+          font-size: 2.7rem;
+          letter-spacing: 0;
+          line-height: 0.92;
+        }
+
         .nav-inner,
         .article-head,
         .hero,
@@ -945,6 +1040,28 @@
           grid-column: 2;
           margin-left: 0;
         }
+
+        .advantage-lede {
+          font-size: 1.16rem;
+        }
+
+        .advantage-row {
+          grid-template-columns: 38px minmax(0, 1fr);
+          gap: 8px 14px;
+        }
+
+        .advantage-row p {
+          grid-column: 2;
+        }
+
+        .refining-quote {
+          padding: 28px 24px;
+          font-size: 1.05rem;
+        }
+
+        .refining-quote::before {
+          display: none;
+        }
       }
     </style>
   </head>
@@ -996,6 +1113,48 @@
               当前公开页面：<code>https://paofuxiaomiao.github.io/gou0745-tech-77ebc320/</code>。公开资源路径使用
               <code>/gou0745-tech-77ebc320/manus-storage/</code>，一旦发布，文件名应视为稳定接口。
             </div>
+          </section>
+
+          <section id="advantages">
+            <p class="advantage-kicker">Project Advantage · Expression Manufacturing</p>
+            <h2>项目优势：把 AI 退到幕后，把企业表达推到极致</h2>
+            <p class="advantage-lede">
+              我们追求的不是“快速生成一套看起来像 PPT 的图片”，而是把企业展示中的每一次表达做到极致：
+              从字体选择、字重关系到网格、留白与信息节奏，每一个细节都经过可复用、可校准的系统设计。
+            </p>
+
+            <div class="advantage-ledger" aria-label="项目优势生产逻辑">
+              <div class="advantage-row">
+                <span class="advantage-no">01</span>
+                <b>字体即结构</b>
+                <p>字体不是最后套上的皮肤。字族、字重、字号、行距与中英文比例共同建立信息层级，让企业语言稳定、克制且可信。</p>
+              </div>
+              <div class="advantage-row">
+                <span class="advantage-no">02</span>
+                <b>排版即叙事</b>
+                <p>页面通过网格、留白、对齐与节奏组织观点，不依赖一张大图掩盖信息问题，让每一页都能承担明确的沟通任务。</p>
+              </div>
+              <div class="advantage-row">
+                <span class="advantage-no">03</span>
+                <b>批量而不复制</b>
+                <p>用结构化内容、设计 token、共享组件与页面注册表形成生产线，既能批量生成企业展示 PPT，又能保持逐页差异和统一品质。</p>
+              </div>
+              <div class="advantage-row">
+                <span class="advantage-no">04</span>
+                <b>不同于图片生成</b>
+                <p>页面由真实文字、布局规则和浏览器渲染构成，而非不可编辑的文生图海报；内容可维护、版式可升级、资产可追溯。</p>
+              </div>
+            </div>
+
+            <blockquote class="refining-quote">
+              这条路径更像冶炼金属：结构化内容是矿石，组件与规则是模具，渲染、校准与复核是反复锻造。
+              最终留下的是稳定、精确、可持续生产的企业表达，AI 痕迹则在这条生产链中被逐层消除。
+            </blockquote>
+
+            <p>
+              因此，它既不同于传统 PPT 的逐页手工拼装，也不同于依赖图片生成的海报式生产。
+              我们用代码定义版式系统，用组件沉淀设计语言，用数据驱动页面批量生产，再由人工审美完成最后校准。
+            </p>
           </section>
 
           <section id="tech-stack">
@@ -1253,6 +1412,7 @@ curl -L -I https://paofuxiaomiao.github.io/gou0745-tech-77ebc320/</code></pre>
         <aside class="toc" aria-label="文章目录">
           <div class="toc-title">Contents</div>
           <a href="#overview" class="active">项目概览</a>
+          <a href="#advantages">项目优势</a>
           <a href="#tech-stack">技术栈</a>
           <a href="#generation-method">生成链路</a>
           <a href="#page-architecture">页面架构</a>
